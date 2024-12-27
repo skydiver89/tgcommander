@@ -3,4 +3,4 @@ GITREV := $(shell git describe --tags --dirty)
 BUILDTIME := $(shell date)
 LDFLAGS := '-w -s -X "main.VERSION=$(VERSION)" -X "main.GITREV=$(GITREV)" -X "main.BUILDTIME=$(BUILDTIME)"'
 all:
-	go build -ldflags=$(LDFLAGS)
+	CGO_ENABLED=0 go build -ldflags=$(LDFLAGS)
