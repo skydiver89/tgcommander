@@ -15,7 +15,7 @@ Usage: tgcommander [-c configFile] [-h] [-v]
   -v    Show version information
 ```
 ## Configuration file  
-Configuration file is YAML-fille  
+Configuration file is YAML-file  
 ```
 telegram:
   token: YOUR_TG_BOT_TOKEN
