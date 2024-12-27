@@ -1,4 +1,4 @@
-module univBashBot
+module tgcommander
 
 go 1.22.3
 
