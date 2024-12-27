@@ -1,9 +1,14 @@
 ## Description  
 This telegram bot can be used to launch commands or scripts and see their output  
 ## Build  
-Simply run:
+Simply run:  
 ```
 $ make
+```
+Bin file will appear in ./build directory  
+To build deb-package run  
+```
+$ make deb
 ```
 ## Usage  
 ```
@@ -44,4 +49,22 @@ buttons:
     command: "echo"
     arguments: ["Hello world"]
     output: true
+```
+## Install on debian-based systems with systemd  
+Download or build deb-package. Then:  
+```
+$ sudo apt install deb-package
+```
+Then you should edit config /etc/tgcommander/config.yaml  
+Start bot:
+```
+$ sudo systemctl start tgcommander.service
+```
+Stop bot:
+```
+$ sudo systemctl stop tgcommander.service  
+```
+Enable autostart:  
+```
+$ sudo systemctl enable tgcommander.service
 ```
