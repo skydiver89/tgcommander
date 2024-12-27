@@ -1,7 +1,10 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"log"
+	"os"
 	"os/exec"
 	"time"
 
@@ -9,11 +12,40 @@ import (
 	"github.com/mpvl/unique"
 )
 
+var VERSION = "0.1.0"
+var GITREV = ""
+var BUILDTIME = ""
+
+var configFile = "config.yaml"
 var config Config
 var keyboard tgbotapi.ReplyKeyboardMarkup
 
+func parseFlags() {
+	flag.Usage = func() {
+		fmt.Printf("Usage: %s [-c configFile] [-h] [-v]\n", os.Args[0])
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
+	var showHelp bool
+	flag.BoolVar(&showHelp, "h", false, "Show this help")
+	var showVersion bool
+	flag.BoolVar(&showVersion, "v", false, "Show version information")
+	flag.StringVar(&configFile, "c", "config.yaml", "Path to config file")
+	flag.Parse()
+	if showHelp {
+		flag.Usage()
+	}
+	if showVersion {
+		fmt.Println("Version      : ", VERSION)
+		fmt.Println("Git revision : ", GITREV)
+		fmt.Println("Build date   : ", BUILDTIME)
+		os.Exit(0)
+	}
+}
+
 func main() {
-	err := config.load("config.yaml")
+	parseFlags()
+	err := config.load(configFile)
 	if err != nil {
 		log.Fatal(err)
 	}
