@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os/exec"
 	"time"
@@ -34,8 +33,7 @@ func main() {
 		updates := bot.GetUpdatesChan(u)
 		for update := range updates {
 			if update.Message != nil {
-				fmt.Println("Message from ", update.Message.From.UserName)
-				if !userIsAllowed(update.Message.From.UserName, bot, update.Message.Chat.ID) {
+				if !userIsAllowed(update.Message.From.ID, bot, update.Message.Chat.ID) {
 					continue
 				}
 				answer(update.Message.Text, bot, update.Message.Chat.ID)
@@ -62,7 +60,7 @@ func createKeyboard() {
 	}
 }
 
-func userIsAllowed(user string, bot *tgbotapi.BotAPI, chat int64) bool {
+func userIsAllowed(user int64, bot *tgbotapi.BotAPI, chat int64) bool {
 	for _, u := range config.Telegram.Users {
 		if u == user {
 			return true
@@ -97,7 +95,7 @@ func processCommand(button Button, bot *tgbotapi.BotAPI, chat int64) {
 }
 
 func sendKeyboard(bot *tgbotapi.BotAPI, chat int64) {
-	msg := tgbotapi.NewMessage(chat, "")
+	msg := tgbotapi.NewMessage(chat, "Choose action:")
 	msg.ReplyMarkup = keyboard
 	bot.Send(msg)
 }
