@@ -12,9 +12,9 @@ type Config struct {
 }
 
 type Telegram struct {
-	Token          string  `yaml:"token"`
-	Users          []int64 `yaml:"users"`
-	DeclineMessage string  `yaml:"declineMessage"`
+	Token          string   `yaml:"token"`
+	Users          []string `yaml:"users"`
+	DeclineMessage string   `yaml:"declineMessage"`
 }
 
 type Button struct {
