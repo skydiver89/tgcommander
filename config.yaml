@@ -5,7 +5,8 @@ telegram:
 buttons:
   - name: name1
     row: 0
-    command: "ls -la"
+    command: "ls"
+    arguments: ["-l", "-a"]
     output: true
   - name: name2
     row: 1
@@ -13,5 +14,6 @@ buttons:
     exitCode: true
   - name: name3
     row: 1
-    command: "echo 'Hello, world!'"
+    command: "echo"
+    arguments: ["Hello world"]
     output: true

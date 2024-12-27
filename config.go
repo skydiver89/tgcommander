@@ -18,11 +18,12 @@ type Telegram struct {
 }
 
 type Button struct {
-	Name     string `yaml:"name"`
-	Row      int    `yaml:"row"`
-	Command  string `yaml:"command"`
-	Output   bool   `yaml:"output"`
-	ExitCode bool   `yaml:"exitCode"`
+	Name      string   `yaml:"name"`
+	Row       int      `yaml:"row"`
+	Command   string   `yaml:"command"`
+	Arguments []string `yaml:"arguments"`
+	Output    bool     `yaml:"output"`
+	ExitCode  bool     `yaml:"exitCode"`
 }
 
 func (c *Config) load(fname string) error {
