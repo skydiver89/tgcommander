@@ -6,15 +6,18 @@ import (
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/mpvl/unique"
 )
 
 var config Config
+var keyboard tgbotapi.ReplyKeyboardMarkup
 
 func main() {
 	err := config.load("config.yaml")
 	if err != nil {
 		log.Fatal(err)
 	}
+	createKeyboard()
 
 	for {
 		bot, err := tgbotapi.NewBotAPI(config.Telegram.Token)
@@ -40,6 +43,24 @@ func main() {
 	}
 }
 
+func createKeyboard() {
+	var bufrows []int
+	for _, button := range config.Buttons {
+		bufrows = append(bufrows, button.Row)
+	}
+	unique.Ints(&bufrows)
+	numrows := len(bufrows)
+	for i := 0; i < numrows; i++ {
+		var row []tgbotapi.KeyboardButton
+		for _, button := range config.Buttons {
+			if button.Row == i {
+				row = append(row, tgbotapi.NewKeyboardButton(button.Name))
+			}
+		}
+		keyboard.Keyboard = append(keyboard.Keyboard, row)
+	}
+}
+
 func userIsAllowed(user string, bot *tgbotapi.BotAPI, chat int64) bool {
 	for _, u := range config.Telegram.Users {
 		if u == user {
@@ -52,4 +73,21 @@ func userIsAllowed(user string, bot *tgbotapi.BotAPI, chat int64) bool {
 }
 
 func answer(message string, bot *tgbotapi.BotAPI, chat int64) {
+	for _, button := range config.Buttons {
+		if button.Name == message {
+			processCommand(button, bot, chat)
+			return
+		}
+	}
+	sendKeyboard(bot, chat)
+}
+
+func processCommand(button Button, bot *tgbotapi.BotAPI, chat int64) {
+
+}
+
+func sendKeyboard(bot *tgbotapi.BotAPI, chat int64) {
+	msg := tgbotapi.NewMessage(chat, "")
+	msg.ReplyMarkup = keyboard
+	bot.Send(msg)
 }

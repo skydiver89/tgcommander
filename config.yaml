@@ -4,14 +4,14 @@ telegram:
   declineMessage: "go away"
 buttons:
   - name: name1
-    row: 1
+    row: 0
     command: "ls -la"
     output: true
   - name: name2
-    row: 2
+    row: 1
     script: "./test.sh"
     exitCode: true
   - name: name3
-    row: 2
+    row: 1
     command: "echo 'Hello, world!'"
     output: true
