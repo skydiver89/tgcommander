@@ -21,7 +21,6 @@ type Button struct {
 	Name     string `yaml:"name"`
 	Row      int    `yaml:"row"`
 	Command  string `yaml:"command"`
-	Script   string `yaml:"script"`
 	Output   bool   `yaml:"output"`
 	ExitCode bool   `yaml:"exitCode"`
 }

@@ -9,7 +9,7 @@ buttons:
     output: true
   - name: name2
     row: 1
-    script: "./test.sh"
+    command: "./test.sh"
     exitCode: true
   - name: name3
     row: 1
