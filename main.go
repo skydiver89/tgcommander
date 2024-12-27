@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os/exec"
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -83,7 +84,16 @@ func answer(message string, bot *tgbotapi.BotAPI, chat int64) {
 }
 
 func processCommand(button Button, bot *tgbotapi.BotAPI, chat int64) {
-
+	out, err := exec.Command(button.Command, button.Arguments...).Output()
+	if err != nil {
+		msg := tgbotapi.NewMessage(chat, err.Error())
+		bot.Send(msg)
+		return
+	}
+	if button.Output {
+		msg := tgbotapi.NewMessage(chat, string(out))
+		bot.Send(msg)
+	}
 }
 
 func sendKeyboard(bot *tgbotapi.BotAPI, chat int64) {

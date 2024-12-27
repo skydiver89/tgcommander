@@ -23,7 +23,6 @@ type Button struct {
 	Command   string   `yaml:"command"`
 	Arguments []string `yaml:"arguments"`
 	Output    bool     `yaml:"output"`
-	ExitCode  bool     `yaml:"exitCode"`
 }
 
 func (c *Config) load(fname string) error {
