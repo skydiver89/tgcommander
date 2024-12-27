@@ -54,7 +54,7 @@ func main() {
 	for {
 		bot, err := tgbotapi.NewBotAPI(config.Telegram.Token)
 		if err != nil {
-			log.Fatal(err)
+			log.Println(err)
 			time.Sleep(time.Second * 10)
 			continue
 		}
