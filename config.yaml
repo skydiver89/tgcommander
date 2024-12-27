@@ -1,0 +1,17 @@
+telegram:
+  token: asd
+  users: []
+  declineMessage: "go away"
+buttons:
+  - name: name1
+    row: 1
+    command: "ls -la"
+    output: true
+  - name: name2
+    row: 2
+    script: "./test.sh"
+    exitCode: true
+  - name: name3
+    row: 2
+    command: "echo 'Hello, world!'"
+    output: true
