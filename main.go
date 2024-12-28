@@ -98,7 +98,7 @@ func userIsAllowed(user int64, bot *tgbotapi.BotAPI, chat int64) bool {
 			return true
 		}
 	}
-	msg := tgbotapi.NewMessage(chat, "Ты кто такой? Давай, до свидания!")
+	msg := tgbotapi.NewMessage(chat, config.Telegram.DeclineMessage)
 	bot.Send(msg)
 	return false
 }
