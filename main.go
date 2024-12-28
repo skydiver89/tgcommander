@@ -68,7 +68,7 @@ func main() {
 				if !userIsAllowed(update.Message.From.ID, bot, update.Message.Chat.ID) {
 					continue
 				}
-				answer(update.Message.Text, bot, update.Message.Chat.ID)
+				go answer(update.Message.Text, bot, update.Message.Chat.ID)
 			}
 		}
 	}
@@ -121,7 +121,8 @@ func processCommand(button Button, bot *tgbotapi.BotAPI, chat int64) {
 		return
 	}
 	if button.Output {
-		msg := tgbotapi.NewMessage(chat, string(out))
+		res := fmt.Sprintf("Result of %s (%s):\n%s", button.Name, button.Command, string(out))
+		msg := tgbotapi.NewMessage(chat, res)
 		bot.Send(msg)
 	}
 }
