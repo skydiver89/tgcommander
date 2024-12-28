@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"strings"
 	"time"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -121,7 +122,7 @@ func processCommand(button Button, bot *tgbotapi.BotAPI, chat int64) {
 		return
 	}
 	if button.Output {
-		res := fmt.Sprintf("Result of %s (%s):\n%s", button.Name, button.Command, string(out))
+		res := fmt.Sprintf("Result of %s (%s %s):\n%s", button.Name, button.Command, strings.Join(button.Arguments, " "), string(out))
 		msg := tgbotapi.NewMessage(chat, res)
 		bot.Send(msg)
 	}
