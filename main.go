@@ -69,7 +69,7 @@ func main() {
 				if !userIsAllowed(update.Message.From.ID, bot, update.Message.Chat.ID) {
 					continue
 				}
-				go answer(update.Message.Text, bot, update.Message.Chat.ID)
+				go answer(update.Message, bot)
 			}
 		}
 	}
@@ -104,14 +104,15 @@ func userIsAllowed(user int64, bot *tgbotapi.BotAPI, chat int64) bool {
 	return false
 }
 
-func answer(message string, bot *tgbotapi.BotAPI, chat int64) {
+func answer(message *tgbotapi.Message, bot *tgbotapi.BotAPI) {
+	defer bot.Request(tgbotapi.NewDeleteMessage(message.Chat.ID, message.MessageID))
 	for _, button := range config.Buttons {
-		if button.Name == message {
-			processCommand(button, bot, chat)
+		if button.Name == message.Text {
+			processCommand(button, bot, message.Chat.ID)
 			return
 		}
 	}
-	sendKeyboard(bot, chat)
+	sendKeyboard(bot, message.Chat.ID)
 }
 
 func processCommand(button Button, bot *tgbotapi.BotAPI, chat int64) {
