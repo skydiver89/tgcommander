@@ -6,8 +6,6 @@ LDFLAGS := '-w -s -X "main.VERSION=$(VERSION)" -X "main.GITREV=$(GITREV)" -X "ma
 .ONESHELL:
 all:
 	mkdir -p build
-	CGO_ENABLED=0 go build -ldflags=$(LDFLAGS)
-	mv tgcommander ./build/tgcommander
-deb:
-	mkdir -p build
+	CGO_ENABLED=0 go build -ldflags=$(LDFLAGS) -o ./build/tgcommander_linux_x86_64
+deb: all
 	./buildscripts/builddeb.sh
