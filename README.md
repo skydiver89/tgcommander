@@ -6,10 +6,13 @@ Simply run:
 $ make
 ```
 Bin file will appear in ./build directory  
-To build deb-package run  
+  
+To build deb-package you will need fpm: https://github.com/jordansissel/fpm  
+Once installed, just run:  
 ```
 $ make deb
 ```
+Deb-package will appear in ./build directory  
 ## Usage  
 ```
 $ tgcommander -h
@@ -23,6 +26,7 @@ Usage: tgcommander [-c configFile] [-h] [-v]
 Configuration file is YAML-file  
 ```
 telegram:
+  #create bot in @BotFather and get token
   token: YOUR_TG_BOT_TOKEN
   #list of user IDs who is allowed to use bot
   #can be found in @userinfobot
@@ -53,7 +57,7 @@ buttons:
 ## Install on debian-based systems with systemd  
 Download or build deb-package. Then:  
 ```
-$ sudo apt install deb-package
+$ sudo apt install tgcommander-x.x.x-x86_64.deb
 ```
 Then you should edit config /etc/tgcommander/config.yaml  
 Start bot:
