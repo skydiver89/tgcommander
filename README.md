@@ -57,7 +57,7 @@ buttons:
 ## Install on debian-based systems with systemd  
 Download or build deb-package. Then:  
 ```
-$ sudo apt install tgcommander-x.x.x-x86_64.deb
+$ sudo dpkg -i tgcommander-x.x.x-x86_64.deb
 ```
 Then you should edit config /etc/tgcommander/config.yaml  
 Start bot:
